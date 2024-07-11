@@ -54,4 +54,18 @@ const getUser = async (req, res) => {
 }
 
 
-module.exports = { listUsers, createUser, updateUser, deleteUser, getUser }
+const login = async (req, res) => {
+    try {
+        const {email, senha} = req.body;
+        const sql = `SELECT * FROM usuarios WHERE email = $1`
+        const user = await client.query(sql, [email])
+        res.send(200)
+        console.log(user.rows[0])
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports = { listUsers, createUser, updateUser, deleteUser, getUser, login }
