@@ -1,13 +1,19 @@
 const express = require('express')
-const connectDB = require('./db')
+
+require('dotenv').config();
+const { connectDB } = require('./db')
+const routes = require('./routes')
 
 const app = express()
 
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+
 connectDB()
 
-app.get('/test-api', function (req, res) {
-    res.send('Nossa api ta funfando')
-})
+app.use("/usuarios", routes)
+
+
 
 
 app.listen(8000)
